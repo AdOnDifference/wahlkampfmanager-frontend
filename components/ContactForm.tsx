@@ -9,7 +9,8 @@ type Props = {
 
 export default function ContactForm({ initial, onSubmit, submitLabel = 'Speichern' }: Props) {
   const [form, setForm] = useState<Contact>({
-    name: initial?.name || '',
+    firstName: initial?.firstName ?? '',
+    lastName:  initial?.lastName  ?? '',
     role: initial?.role || '',
     city: initial?.city || '',
     email: initial?.email || '',
@@ -34,10 +35,29 @@ export default function ContactForm({ initial, onSubmit, submitLabel = 'Speicher
       finally { setLoading(false); }
     }}>
       {error && <div className="text-red-600">{error}</div>}
-      <div>
-        <label className="label">Name *</label>
-        <input required className="input" value={form.name} onChange={change('name')} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="label">Vorname *</label>
+          <input
+              required
+              className="input"
+              value={form.firstName}
+              onChange={change('firstName')}
+              placeholder="Vorname"
+          />
+        </div>
+        <div>
+          <label className="label">Nachname *</label>
+          <input
+              required
+              className="input"
+              value={form.lastName}
+              onChange={change('lastName')}
+              placeholder="Nachname"
+          />
+        </div>
       </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="label">Rolle</label>

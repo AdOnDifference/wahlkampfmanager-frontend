@@ -35,7 +35,7 @@ export default function Home() {
           {data.map(c => (
             <li key={c.id} className="py-3 flex items-center justify-between">
               <div>
-                <div className="font-medium">{c.name}</div>
+                <div className="font-medium">{c.firstName} {c.lastName}</div>
                 <div className="text-sm text-gray-600">{[c.role, c.city, c.email].filter(Boolean).join(' · ')}</div>
               </div>
               <div className="flex gap-2">

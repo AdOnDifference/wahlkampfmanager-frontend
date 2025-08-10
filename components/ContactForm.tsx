@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import type { Contact } from '@/lib/api';
+import type { Contact } from '../lib/api';
 
 type Props = {
   initial?: Contact;

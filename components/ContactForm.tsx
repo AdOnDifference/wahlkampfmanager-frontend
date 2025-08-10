@@ -80,7 +80,7 @@ export default function ContactForm({ initial, onSubmit, submitLabel = 'Speicher
       </div>
       <div>
         <label className="label">Tags (kommagetrennt)</label>
-        <input className="input" value={form.tags} onChange={change('tags')} />
+        <input className="input" value={form.tags ?? ''} onChange={change('tags')} />
       </div>
       <div className="flex items-center gap-2">
         <input id="consent" type="checkbox" checked={!!form.consent} onChange={change('consent')} />

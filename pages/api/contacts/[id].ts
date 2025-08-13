@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 
-const BACKEND_URL = process.env.BACKEND_URL; // z.B. https://wahlkampfmanager.onrender.com
+const BACKEND_URL = process.env.BACKEND_URL ?? process.env.NEXT_PUBLIC_API_BASE_URL;
+ // z.B. https://wahlkampfmanager.onrender.com
 function backend(path: string) {
     return `${(BACKEND_URL ?? "").replace(/\/$/, "")}${path}`;
 }

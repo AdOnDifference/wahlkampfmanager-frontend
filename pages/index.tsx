@@ -14,22 +14,28 @@ export default function HomePage() {
   const [tab, setTab] = useState<"ansprechpartner" | "pdf">("ansprechpartner");
 
   // ---- FIX: Pflichtprop onSubmit für ContactForm sauber typisiert übergeben ----
+  // ---- FIX: Pflichtprop onSubmit für ContactForm sauber typisiert übergeben ----
   type ContactFormProps = React.ComponentProps<typeof ContactForm>;
-  const handleContactSubmit: ContactFormProps["onSubmit"] = async (values) => {
-    // Falls dein ContactForm intern selbst die API callt, reicht ein no-op:
-    // return;
 
-    // Optional: Beispiel-POST (passe URL bei Bedarf an oder lass den no-op)
+  const handleContactSubmit: ContactFormProps["onSubmit"] = async (values) => {
     try {
-      await fetch("/api/contact", {
+      const r = await fetch("/api/contacts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
+      if (!r.ok) {
+        const msg = await r.text();
+        throw new Error(`Speichern fehlgeschlagen: ${r.status} ${msg}`);
+      }
+      alert("Ansprechpartner gespeichert ✅");
     } catch (err) {
-      console.error("Contact submit failed:", err);
+      console.error(err);
+      alert("Speichern fehlgeschlagen ❌");
     }
   };
+// ---------------------------------------------------------------------------
+
   // ---------------------------------------------------------------------------
 
   return (
@@ -74,28 +80,20 @@ export default function HomePage() {
             <div className="mx-auto max-w-6xl px-4 py-16 sm:py-20">
               <div className="mb-6 flex justify-center">
               <span className="rounded-full bg-zinc-100 px-3 py-1 text-xs">
-                Public beta startet nächste Woche
+                Befindet sich noch in der Entwicklung
               </span>
               </div>
               <h1 className="mx-auto max-w-3xl text-center text-4xl font-extrabold leading-tight sm:text-5xl">
-                Schnell, flexibel, und
+                Der Wahlkampfmanager für
                 <br className="hidden sm:block" />
-                developer-first CMS für Kampagnen.
+                Kampagnen und moderne Verbandsarbeit.
               </h1>
               <p className="mx-auto mt-4 max-w-2xl text-center text-zinc-600">
-                Verwalte Ansprechpartner & generiere PDFs – schnell, API-first, ohne Flexibilitätsverlust.
+                Verwalte Ansprechpartner & generiere Einladungen
               </p>
               <div className="mt-8 flex items-center justify-center gap-3">
                 <a href="#switch" className="rounded-full bg-zinc-900 px-6 py-3 text-sm text-white hover:opacity-90">
                   Los geht’s
-                </a>
-                <a
-                    href="https://github.com/AdOnDifference/wahlkampfmanager-frontend"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="rounded-full border px-6 py-3 text-sm hover:bg-zinc-50"
-                >
-                  GitHub
                 </a>
               </div>
             </div>
@@ -129,9 +127,7 @@ export default function HomePage() {
                       PDF-Generator
                     </button>
                   </div>
-                  <p className="text-center text-xs text-zinc-500 sm:text-right">
-                    Tipp: Nutzt Tabs, um ohne Seitenwechsel zu arbeiten.
-                  </p>
+
                 </div>
 
                 <div className="mt-6" />
@@ -143,16 +139,6 @@ export default function HomePage() {
                         {/* FIX: ContactForm mit Pflichtprop */}
                         <ContactForm onSubmit={handleContactSubmit} />
                       </div>
-                      <aside className="md:col-span-4">
-                        <div className="sticky top-24 rounded-xl border">
-                          <div className="space-y-2 p-4">
-                            <h3 className="text-sm font-semibold">Hinweis</h3>
-                            <p className="text-sm text-zinc-600">
-                              Diese Sektion lädt eure Ansprechpartner-Logik (ContactForm).
-                            </p>
-                          </div>
-                        </div>
-                      </aside>
                     </div>
                 ) : (
                     <div className="grid gap-6 md:grid-cols-12">
@@ -165,7 +151,7 @@ export default function HomePage() {
                           <div className="space-y-2 p-4">
                             <h3 className="text-sm font-semibold">Export</h3>
                             <p className="text-sm text-zinc-600">
-                              Erzeugt druckfertige PDFs für eure Kampagne.
+                              Erzeugt druckfertige PDFs für eure Vorstandseinladungen.
                             </p>
                           </div>
                         </div>

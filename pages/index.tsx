@@ -57,11 +57,8 @@ export default function HomePage() {
                   Wahlkampfmanager
                 </a>
                 <nav className="ml-6 hidden items-center gap-5 text-sm text-zinc-600 md:flex">
-                  <a href="#product" className="hover:text-zinc-900">Produkt</a>
-                  <a href="#about" className="hover:text-zinc-900">Über</a>
-                  <a href="#faq" className="hover:text-zinc-900">FAQ</a>
-                  <a href="#blog" className="hover:text-zinc-900">Blog</a>
-                  <a href="#contact" className="hover:text-zinc-900">Kontakt</a>
+                  <a href="/contacts" className="hover:text-zinc-900 font-medium">Ansprechpartner</a>
+
                 </nav>
               </div>
               <div className="flex items-center gap-2">
@@ -91,9 +88,16 @@ export default function HomePage() {
               <p className="mx-auto mt-4 max-w-2xl text-center text-zinc-600">
                 Verwalte Ansprechpartner & generiere Einladungen
               </p>
+
               <div className="mt-8 flex items-center justify-center gap-3">
                 <a href="#switch" className="rounded-full bg-zinc-900 px-6 py-3 text-sm text-white hover:opacity-90">
                   Los geht’s
+                </a>
+                <a
+                    href="/contacts"
+                    className="rounded-full border px-6 py-3 text-sm hover:bg-zinc-50"
+                >
+                  Ansprechpartner ansehen
                 </a>
               </div>
             </div>

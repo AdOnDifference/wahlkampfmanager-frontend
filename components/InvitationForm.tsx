@@ -20,12 +20,16 @@ export default function InvitationForm() {
         setForm({ ...form, [k]: e.target.value });
     };
 
+    // NEU:
+    const [agendaText, setAgendaText] = useState(form.agenda.join('\n'));
+
     const changeAgendaText = (e: any) => {
-        const lines = e.target.value.split('\n').map((s: string) => s.trim()).filter(Boolean);
-        setForm({ ...form, agenda: lines });
+        const text = e.target.value;
+        setAgendaText(text);
+        // Wichtig: hier KEIN trim/filter, sonst „verschwindet“ Enter optisch sofort.
+        setForm({ ...form, agenda: text.split('\n') });
     };
 
-    const agendaText = form.agenda.join('\n');
 
     return (
         <div className="grid md:grid-cols-2 gap-6">
